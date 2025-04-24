@@ -45,7 +45,7 @@ class MinimizerScanner {
   ssize_t l() const { return l_; }
   bool is_dna() const { return dna_; }
   bool is_ambiguous() const {
-    return (queue_pos_ < k_ - l_) || (!! last_ambig_);
+    return (queue_pos_ < k_ - l_ + 1) || (!! last_ambig_);
   }
 
   private:
