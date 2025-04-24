@@ -148,9 +148,13 @@ uint64_t *MinimizerScanner::NextMinimizer() {
     if (loaded_ch_ < l_)  // Abort if we've exhausted string interval w/o
       return nullptr;     //   filling the l-mer
     uint64_t canonical_lmer = dna_ ? canonical_representation(lmer_, l_) : lmer_;
+    //printf("%d %d %d\n", queue_pos_, loaded_ch_, str_pos_);
+//printf("Can %16lx\n", canonical_lmer);
     if (spaced_seed_mask_)
       canonical_lmer &= spaced_seed_mask_;
+  // printf("Space masked %16lx\n", canonical_lmer);
     uint64_t candidate_lmer = canonical_lmer ^ toggle_mask_;
+ //  printf("Toggled %16lx\n", candidate_lmer);
     if (k_ == l_) {  // Short-circuit queue work
       last_minimizer_ = candidate_lmer ^ toggle_mask_;
       return &last_minimizer_;

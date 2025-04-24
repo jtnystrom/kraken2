@@ -350,9 +350,11 @@ void ProcessSequence(const Options &opts, const string &seq, taxid_t taxid,
         subblock_finish = block_finish;
       scanner.LoadSequence(seq, i, subblock_finish);
       uint64_t *minimizer_ptr;
+      uint64_t lmer_mask = (1UL << 62) - 1;
       while ((minimizer_ptr = scanner.NextMinimizer())) {
         if (scanner.is_ambiguous())
           continue;
+        //printf("%16lx\n", (*minimizer_ptr ^ (opts.toggle_mask & lmer_mask)));
         auto hc = MurmurHash3(*minimizer_ptr);
         // Hash-based subsampling
         if (opts.min_clear_hash_value && hc < opts.min_clear_hash_value)
